@@ -1,113 +1,56 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Projekt-Dashboard</title>
-  <style>
-    :root {
-      --bg: #0f1419;
-      --surface: #1a2129;
-      --surface-hover: #222c37;
-      --border: #2a3540;
-      --text: #e6edf3;
-      --text-dim: #8b98a5;
-      --accent: #4493f8;
-      --accent-soft: rgba(68, 147, 248, 0.12);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      min-height: 100vh;
-    }
-    .wrap { max-width: 960px; margin: 0 auto; padding: 48px 24px 64px; }
-    header { margin-bottom: 40px; }
-    h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; }
-    .subtitle { color: var(--text-dim); margin-top: 6px; font-size: 1rem; }
-    .section-title {
-      font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em;
-      color: var(--text-dim); margin: 32px 0 16px; font-weight: 600;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 16px;
-    }
-    .card {
-      display: block;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      text-decoration: none;
-      color: var(--text);
-      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
-    }
-    .card:hover {
-      background: var(--surface-hover);
-      border-color: var(--accent);
-      transform: translateY(-2px);
-    }
-    .card .icon {
-      width: 40px; height: 40px; border-radius: 10px;
-      background: var(--accent-soft); color: var(--accent);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem; margin-bottom: 14px;
-    }
-    .card h3 { font-size: 1.05rem; font-weight: 600; }
-    .card p { color: var(--text-dim); font-size: 0.9rem; margin-top: 4px; }
-    footer {
-      margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border);
-      color: var(--text-dim); font-size: 0.85rem;
-    }
-    footer a { color: var(--accent); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
-  </style>
+  <script>(function(){try{var t=localStorage.getItem('hub-theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+  <link rel="stylesheet" href="./assets/style.css" />
 </head>
 <body>
   <div class="wrap">
+    <div class="topbar">
+      <span class="brand">⬡ Hub</span>
+      <button type="button" class="theme-toggle" aria-label="Modus wechseln">🌙</button>
+    </div>
+
     <header>
       <h1>Projekt-Dashboard</h1>
-      <p class="subtitle">Zentrale Übersicht über meine Projekte und HTML-Seiten</p>
+      <p class="subtitle">Zentrale Übersicht über meine Projekte und Templates</p>
     </header>
 
     <!--
-      So fügst du ein Projekt hinzu:
-      1. Lege deine HTML-Datei (oder einen Unterordner mit index.html) in dieses Repo.
-      2. Kopiere eine <a class="card"> ... </a>-Kachel und passe href, Titel und Beschreibung an.
-      3. git add . && git commit -m "..." && git push  -> ein paar Sekunden später ist es online.
+      Projekt hinzufügen: Ordner mit index.html anlegen, dann unten eine
+      <a class="card c-..."> Kachel kopieren und href/Titel/Beschreibung anpassen.
     -->
-    <p class="section-title">Projekte</p>
+    <p class="section-title">Trainingsplanung 2026</p>
     <div class="grid">
 
-      <a class="card" href="./trainingsplan/">
+      <a class="card c-plan" href="./trainingsplan/">
         <div class="icon">🗓️</div>
         <h3>Trainingsplan</h3>
-        <p>8-Wochen-Überblick: Ausdauer, Kraft &amp; Technik.</p>
+        <p>8-Wochen-Überblick mit Abhaken pro Woche.</p>
       </a>
 
-      <a class="card" href="./ellbogen-morgenroutine/">
+      <a class="card c-elbow" href="./ellbogen-morgenroutine/">
         <div class="icon">🌅</div>
         <h3>Ellbogen-Morgenroutine</h3>
-        <p>Mobility-Ablauf für morgens (~10 min).</p>
+        <p>Mobility mit Timer pro Schritt (~10 min).</p>
       </a>
 
-      <a class="card" href="./kraft-a/">
+      <a class="card c-kraftA" href="./kraft-a/">
         <div class="icon">💪</div>
         <h3>Kraft A</h3>
-        <p>Core &amp; Hüfte — Stabilität &amp; Rumpf.</p>
+        <p>Core &amp; Hüfte — mit Pausen-Timer.</p>
       </a>
 
-      <a class="card" href="./kraft-b/">
+      <a class="card c-kraftB" href="./kraft-b/">
         <div class="icon">🏋️</div>
         <h3>Kraft B</h3>
-        <p>Schulter &amp; Rotatoren — Schultergürtel &amp; Unterarm.</p>
+        <p>Schulter &amp; Rotatoren — mit Pausen-Timer.</p>
       </a>
 
-      <a class="card" href="https://github.com/JonathanFrisbee/hub">
+      <a class="card c-repo" href="https://github.com/JonathanFrisbee/hub">
         <div class="icon">📁</div>
         <h3>Repository</h3>
         <p>Quellcode dieses Dashboards auf GitHub.</p>
@@ -120,5 +63,6 @@
       <a href="https://github.com/JonathanFrisbee/hub">JonathanFrisbee/hub</a>
     </footer>
   </div>
+  <script src="./assets/app.js"></script>
 </body>
 </html>

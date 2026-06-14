@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>Trainingsplan · 8-Wochen-Überblick</title>
+  <script>(function(){try{var t=localStorage.getItem('hub-theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
   <link rel="stylesheet" href="../assets/style.css" />
 </head>
 <body>
   <div class="wrap">
-    <a class="back" href="../">← Zurück zum Dashboard</a>
-    <h1>Trainingsplan</h1>
+    <div class="topbar">
+      <a class="back" href="../">← Dashboard</a>
+      <button type="button" class="theme-toggle" aria-label="Modus wechseln">🌙</button>
+    </div>
+
+    <h1>🗓️ Trainingsplan</h1>
     <p class="lead">8-Wochen-Überblick · Ausdauer, Kraft &amp; Technik</p>
 
     <div class="unit-nav">
@@ -34,41 +39,70 @@
       <span>Fr · Kraft B</span>
       <span>Sa · Ausdauer</span>
     </div>
-    <p class="lead">In den Reise- und Wettkampfwochen wird dieser Rhythmus bewusst reduziert.</p>
 
-    <h2>Die 8 Wochen</h2>
-    <div class="weeks">
-      <div class="week">
-        <div class="wk-title">Woche 1 <small>· Reisewoche: Heilung &amp; Fundament</small></div>
-        3 lockere Läufe (30–40 min, Zone 2, morgens), 2× Kraft A als Bodyweight-Variante, tägliche Mobility-Routine. Bewusst kein hartes Training — Regeneration hat Vorrang.
+    <h2>Die 8 Wochen <small>· abhaken, was geschafft ist</small></h2>
+    <div class="checklist-head">
+      <span class="progress" data-progress="weeks"><span class="p-fill"></span></span>
+      <span class="p-label" data-label="weeks" data-unit="Wochen">0/8</span>
+      <button type="button" class="btn-reset" data-reset="weeks">Zurücksetzen</button>
+    </div>
+
+    <div class="checklist" data-checklist="weeks">
+      <div class="check-item week">
+        <input type="checkbox" />
+        <div class="ci-body">
+          <div class="wk-title">Woche 1 <small>· Reisewoche: Heilung &amp; Fundament</small></div>
+          3 lockere Läufe (30–40 min, Zone 2, morgens), 2× Kraft A als Bodyweight-Variante, tägliche Mobility-Routine. Bewusst kein hartes Training — Regeneration hat Vorrang.
+        </div>
       </div>
-      <div class="week">
-        <div class="wk-title">Woche 2 <small>· Wettkampfwoche: maximale Entlastung</small></div>
-        Spiele ersetzen das Techniktraining. Nur eine kurze Core-Einheit (ohne Armbelastung), sonst Ruhe und Regeneration. Keine zusätzlichen Einheiten.
+      <div class="check-item week">
+        <input type="checkbox" />
+        <div class="ci-body">
+          <div class="wk-title">Woche 2 <small>· Wettkampfwoche: maximale Entlastung</small></div>
+          Spiele ersetzen das Techniktraining. Nur eine kurze Core-Einheit (ohne Armbelastung), sonst Ruhe und Regeneration. Keine zusätzlichen Einheiten.
+        </div>
       </div>
-      <div class="week">
-        <div class="wk-title">Woche 3 <small>· Übergangswoche</small></div>
-        Technikfokus im Training (lange einseitige Belastungen meiden). Kraft B startet, dazu ein lockerer Z2-Lauf (30 min). Progression dosiert einführen.
+      <div class="check-item week">
+        <input type="checkbox" />
+        <div class="ci-body">
+          <div class="wk-title">Woche 3 <small>· Übergangswoche</small></div>
+          Technikfokus im Training (lange einseitige Belastungen meiden). Kraft B startet, dazu ein lockerer Z2-Lauf (30 min). Progression dosiert einführen.
+        </div>
       </div>
-      <div class="week">
-        <div class="wk-title">Woche 4 <small>· Radlager</small></div>
-        Hohes Z2-Radvolumen mit der Gruppe, ein Ruhetag in der Wochenmitte. Einzige tägliche Pflicht: 10 min Mobility morgens. Kein Kraft- oder Techniktraining.
+      <div class="check-item week">
+        <input type="checkbox" />
+        <div class="ci-body">
+          <div class="wk-title">Woche 4 <small>· Radlager</small></div>
+          Hohes Z2-Radvolumen mit der Gruppe, ein Ruhetag in der Wochenmitte. Einzige tägliche Pflicht: 10 min Mobility morgens. Kein Kraft- oder Techniktraining.
+        </div>
       </div>
-      <div class="week">
-        <div class="wk-title">Woche 5 <small>· Regeneration + Rhythmus zurück</small></div>
-        Lockerer Wiedereinstieg (Beine noch müde vom Radlager), Kraft A + Kraft B, Ausdauer je nach Wetter. Ab hier gilt der Kern-Rhythmus.
+      <div class="check-item week">
+        <input type="checkbox" />
+        <div class="ci-body">
+          <div class="wk-title">Woche 5 <small>· Regeneration + Rhythmus zurück</small></div>
+          Lockerer Wiedereinstieg (Beine noch müde vom Radlager), Kraft A + Kraft B, Ausdauer je nach Wetter. Ab hier gilt der Kern-Rhythmus.
+        </div>
       </div>
-      <div class="week">
-        <div class="wk-title">Woche 6 <small>· Spielwoche</small></div>
-        Training gezielt als Spielvorbereitung (Aufschlag-Rückschlag-Muster). Kraft A nur leicht (kein Muskelkater ins Spiel tragen), lockerer 30-min-Lauf, Spieltag, danach Regeneration.
+      <div class="check-item week">
+        <input type="checkbox" />
+        <div class="ci-body">
+          <div class="wk-title">Woche 6 <small>· Spielwoche</small></div>
+          Training gezielt als Spielvorbereitung (Aufschlag-Rückschlag-Muster). Kraft A nur leicht (kein Muskelkater ins Spiel tragen), lockerer 30-min-Lauf, Spieltag, danach Regeneration.
+        </div>
       </div>
-      <div class="week">
-        <div class="wk-title">Woche 7 <small>· Voller Rhythmus, Progression</small></div>
-        Kern-Rhythmus plus Progression Stufe 2 (einbeinige Varianten, Band eine Stufe härter). Im Training klare Spielzüge wiederholen statt Neues ausprobieren. Am Wochenende eine Rad-Genussfahrt (60–80 km).
+      <div class="check-item week">
+        <input type="checkbox" />
+        <div class="ci-body">
+          <div class="wk-title">Woche 7 <small>· Voller Rhythmus, Progression</small></div>
+          Kern-Rhythmus plus Progression Stufe 2 (einbeinige Varianten, Band eine Stufe härter). Im Training klare Spielzüge wiederholen statt Neues ausprobieren. Am Wochenende eine Rad-Genussfahrt (60–80 km).
+        </div>
       </div>
-      <div class="week">
-        <div class="wk-title">Woche 8 <small>· Abschluss &amp; Review</small></div>
-        Kern-Rhythmus normal durchziehen. Am Ende Review: Kraft-Fortschritt und Spielgefühl bewerten → Basis für die Saisonvorbereitung.
+      <div class="check-item week">
+        <input type="checkbox" />
+        <div class="ci-body">
+          <div class="wk-title">Woche 8 <small>· Abschluss &amp; Review</small></div>
+          Kern-Rhythmus normal durchziehen. Am Ende Review: Kraft-Fortschritt und Spielgefühl bewerten → Basis für die Saisonvorbereitung.
+        </div>
       </div>
     </div>
 
@@ -79,5 +113,6 @@
 
     <footer>Teil des <a href="../">Projekt-Dashboards</a> · Stand 2026</footer>
   </div>
+  <script src="../assets/app.js"></script>
 </body>
 </html>

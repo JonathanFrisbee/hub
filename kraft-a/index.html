@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>Kraft A · Core &amp; Hüfte</title>
+  <script>(function(){try{var t=localStorage.getItem('hub-theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
   <link rel="stylesheet" href="../assets/style.css" />
 </head>
 <body>
   <div class="wrap">
-    <a class="back" href="../">← Zurück zum Dashboard</a>
-    <h1>Kraft A — Core &amp; Hüfte</h1>
-    <p class="lead">35–40 min · Stabilität &amp; Rumpf</p>
+    <div class="topbar">
+      <a class="back" href="../">← Dashboard</a>
+      <button type="button" class="theme-toggle" aria-label="Modus wechseln">🌙</button>
+    </div>
+
+    <h1>💪 Kraft A — Core &amp; Hüfte</h1>
+    <p class="lead">35–40 min · Stabilität &amp; Rumpf · Timer = Pause</p>
 
     <div class="unit-nav">
       <a href="../trainingsplan/">🗓️ Trainingsplan</a>
@@ -19,18 +24,63 @@
       <a href="../ellbogen-morgenroutine/">🌅 Ellbogen-Morgenroutine</a>
     </div>
 
-    <h2>Übungen</h2>
-    <div class="scroll">
-    <table>
-      <thead><tr><th>Übung</th><th>Schema</th><th>Kernpunkte</th></tr></thead>
-      <tbody>
-        <tr><td>Dead Bug</td><td>3×8/Seite, 2 min Pause</td><td>LWS am Boden, 4 Sek. exzentrisch, kein Hohlkreuz</td></tr>
-        <tr><td>Glute Bridge</td><td>3×12, 90 Sek. Pause</td><td>Oben 2 Sek. halten; ab Woche 5 einbeinig (3×10/Seite)</td></tr>
-        <tr><td>Side-lying Hip Abduction</td><td>3×15/Seite, 60 Sek. Pause</td><td>3 Sek. senken, kein Schwingen; ab Woche 5 mit Band</td></tr>
-        <tr><td>Bird Dog</td><td>3×8/Seite, 90 Sek. Pause</td><td>3 Sek. halten, Becken stabil; ab Woche 6 mit 1–2 kg Manschette</td></tr>
-        <tr><td>Pallof Press (Band)</td><td>3×10/Seite, 90 Sek. Pause</td><td>Anti-Rotation, Hüfte stabil</td></tr>
-      </tbody>
-    </table>
+    <h2>Übungen <small>· abhaken, Timer für die Satzpause</small></h2>
+    <div class="checklist-head">
+      <span class="progress" data-progress="krafta"><span class="p-fill"></span></span>
+      <span class="p-label" data-label="krafta" data-unit="Übungen">0/5</span>
+      <button type="button" class="btn-reset" data-reset="krafta">Zurücksetzen</button>
+    </div>
+
+    <div class="checklist" data-checklist="krafta">
+      <div class="check-item has-timer">
+        <input type="checkbox" />
+        <div class="ci-body">
+          <div class="ci-title">Dead Bug</div>
+          <div class="ci-meta">3×8/Seite</div>
+          <div class="ci-desc">LWS am Boden, 4 Sek. exzentrisch, kein Hohlkreuz</div>
+        </div>
+        <span class="timer" data-seconds="120"></span>
+      </div>
+
+      <div class="check-item has-timer">
+        <input type="checkbox" />
+        <div class="ci-body">
+          <div class="ci-title">Glute Bridge</div>
+          <div class="ci-meta">3×12</div>
+          <div class="ci-desc">Oben 2 Sek. halten; ab Woche 5 einbeinig (3×10/Seite)</div>
+        </div>
+        <span class="timer" data-seconds="90"></span>
+      </div>
+
+      <div class="check-item has-timer">
+        <input type="checkbox" />
+        <div class="ci-body">
+          <div class="ci-title">Side-lying Hip Abduction</div>
+          <div class="ci-meta">3×15/Seite</div>
+          <div class="ci-desc">3 Sek. senken, kein Schwingen; ab Woche 5 mit Band</div>
+        </div>
+        <span class="timer" data-seconds="60"></span>
+      </div>
+
+      <div class="check-item has-timer">
+        <input type="checkbox" />
+        <div class="ci-body">
+          <div class="ci-title">Bird Dog</div>
+          <div class="ci-meta">3×8/Seite</div>
+          <div class="ci-desc">3 Sek. halten, Becken stabil; ab Woche 6 mit 1–2 kg Manschette</div>
+        </div>
+        <span class="timer" data-seconds="90"></span>
+      </div>
+
+      <div class="check-item has-timer">
+        <input type="checkbox" />
+        <div class="ci-body">
+          <div class="ci-title">Pallof Press (Band)</div>
+          <div class="ci-meta">3×10/Seite</div>
+          <div class="ci-desc">Anti-Rotation, Hüfte stabil</div>
+        </div>
+        <span class="timer" data-seconds="90"></span>
+      </div>
     </div>
 
     <h2>Progression</h2>
@@ -44,5 +94,6 @@
     <div class="note">Bei Beschwerden Intensität reduzieren oder abbrechen — keine medizinische Beratung.</div>
     <footer>Teil des <a href="../">Projekt-Dashboards</a> · Stand 2026</footer>
   </div>
+  <script src="../assets/app.js"></script>
 </body>
 </html>

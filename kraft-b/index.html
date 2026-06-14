@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>Kraft B · Schulter &amp; Rotatoren</title>
+  <script>(function(){try{var t=localStorage.getItem('hub-theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
   <link rel="stylesheet" href="../assets/style.css" />
 </head>
 <body>
   <div class="wrap">
-    <a class="back" href="../">← Zurück zum Dashboard</a>
-    <h1>Kraft B — Schulter &amp; Rotatoren</h1>
-    <p class="lead">35–40 min · Schultergürtel &amp; Unterarm</p>
+    <div class="topbar">
+      <a class="back" href="../">← Dashboard</a>
+      <button type="button" class="theme-toggle" aria-label="Modus wechseln">🌙</button>
+    </div>
+
+    <h1>🏋️ Kraft B — Schulter &amp; Rotatoren</h1>
+    <p class="lead">35–40 min · Schultergürtel &amp; Unterarm · Timer = Pause</p>
 
     <div class="unit-nav">
       <a href="../trainingsplan/">🗓️ Trainingsplan</a>
@@ -19,18 +24,63 @@
       <a href="../ellbogen-morgenroutine/">🌅 Ellbogen-Morgenroutine</a>
     </div>
 
-    <h2>Übungen</h2>
-    <div class="scroll">
-    <table>
-      <thead><tr><th>Übung</th><th>Schema</th><th>Kernpunkte</th></tr></thead>
-      <tbody>
-        <tr><td>External Rotation (Band)</td><td>3×15/Seite, 60 Sek. Pause</td><td>Ellbogen 90° am Körper, sehr leicht starten</td></tr>
-        <tr><td>Band Pull Apart</td><td>3×15, 60 Sek. Pause</td><td>Arme gestreckt halten (kein Hebelstress auf den Ellbogen)</td></tr>
-        <tr><td>Face Pull (Band)</td><td>3×12, 60 Sek. Pause</td><td>Nur wenn beschwerdefrei; sonst zweite Runde External Rotation</td></tr>
-        <tr><td>Exzentrisches Unterarm-Training</td><td>3×15, 60 Sek. Pause</td><td>Erst nach Freigabe. 0,5–1 kg, mit Hilfe heben (1 Sek.), allein senken (4 Sek.)</td></tr>
-        <tr><td>Pronation / Supination (Band)</td><td>3×12/Richtung, 60 Sek. Pause</td><td>Erst wenn External Rotation beschwerdefrei; ab Woche 7–8</td></tr>
-      </tbody>
-    </table>
+    <h2>Übungen <small>· abhaken, Timer für die Satzpause</small></h2>
+    <div class="checklist-head">
+      <span class="progress" data-progress="kraftb"><span class="p-fill"></span></span>
+      <span class="p-label" data-label="kraftb" data-unit="Übungen">0/5</span>
+      <button type="button" class="btn-reset" data-reset="kraftb">Zurücksetzen</button>
+    </div>
+
+    <div class="checklist" data-checklist="kraftb">
+      <div class="check-item has-timer">
+        <input type="checkbox" />
+        <div class="ci-body">
+          <div class="ci-title">External Rotation (Band)</div>
+          <div class="ci-meta">3×15/Seite</div>
+          <div class="ci-desc">Ellbogen 90° am Körper, sehr leicht starten</div>
+        </div>
+        <span class="timer" data-seconds="60"></span>
+      </div>
+
+      <div class="check-item has-timer">
+        <input type="checkbox" />
+        <div class="ci-body">
+          <div class="ci-title">Band Pull Apart</div>
+          <div class="ci-meta">3×15</div>
+          <div class="ci-desc">Arme gestreckt halten (kein Hebelstress auf den Ellbogen)</div>
+        </div>
+        <span class="timer" data-seconds="60"></span>
+      </div>
+
+      <div class="check-item has-timer">
+        <input type="checkbox" />
+        <div class="ci-body">
+          <div class="ci-title">Face Pull (Band)</div>
+          <div class="ci-meta">3×12</div>
+          <div class="ci-desc">Nur wenn beschwerdefrei; sonst zweite Runde External Rotation</div>
+        </div>
+        <span class="timer" data-seconds="60"></span>
+      </div>
+
+      <div class="check-item has-timer">
+        <input type="checkbox" />
+        <div class="ci-body">
+          <div class="ci-title">Exzentrisches Unterarm-Training</div>
+          <div class="ci-meta">3×15</div>
+          <div class="ci-desc">Erst nach Freigabe. 0,5–1 kg, mit Hilfe heben (1 Sek.), allein senken (4 Sek.)</div>
+        </div>
+        <span class="timer" data-seconds="60"></span>
+      </div>
+
+      <div class="check-item has-timer">
+        <input type="checkbox" />
+        <div class="ci-body">
+          <div class="ci-title">Pronation / Supination (Band)</div>
+          <div class="ci-meta">3×12/Richtung</div>
+          <div class="ci-desc">Erst wenn External Rotation beschwerdefrei; ab Woche 7–8</div>
+        </div>
+        <span class="timer" data-seconds="60"></span>
+      </div>
     </div>
 
     <h2>Progressions-Regeln</h2>
@@ -44,5 +94,6 @@
     <div class="note">Bei Beschwerden Intensität reduzieren oder abbrechen — keine medizinische Beratung.</div>
     <footer>Teil des <a href="../">Projekt-Dashboards</a> · Stand 2026</footer>
   </div>
+  <script src="../assets/app.js"></script>
 </body>
 </html>
