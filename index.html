@@ -6,12 +6,16 @@
   <title>Projekt-Dashboard</title>
   <script>(function(){try{var t=localStorage.getItem('hub-theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
   <link rel="stylesheet" href="./assets/style.css" />
+  <link rel="stylesheet" href="./assets/pong.css" />
 </head>
 <body>
   <div class="wrap">
     <div class="topbar">
       <span class="brand">⬡ Hub</span>
-      <button type="button" class="theme-toggle" aria-label="Modus wechseln">🌙</button>
+      <div class="topbar-actions">
+        <button type="button" class="pong-btn" id="pongBtn" title="Pong Wars" aria-label="Pong Wars spielen">🏓</button>
+        <button type="button" class="theme-toggle" aria-label="Modus wechseln">🌙</button>
+      </div>
     </div>
 
     <header class="hero">
@@ -73,5 +77,6 @@
     </footer>
   </div>
   <script src="./assets/app.js"></script>
+  <script src="./assets/pong.js"></script>
 </body>
 </html>

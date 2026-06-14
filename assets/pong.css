@@ -1,0 +1,169 @@
+/* ============================================================
+   Pong Wars – Star-Wars-Pong mit Pokémon-Übergang
+   ============================================================ */
+
+:root {
+  --sw-yellow: #ffe81f;
+  --saber-blue: #3bcaff;
+  --saber-red: #ff434b;
+  --space: #04050a;
+}
+
+/* Button-Gruppe oben rechts + Paddle-Button */
+.topbar-actions { display: flex; align-items: center; gap: 10px; }
+.pong-btn {
+  width: 42px; height: 42px; flex: none; cursor: pointer;
+  border-radius: 12px; font-size: 1.15rem; line-height: 1;
+  background: var(--glass-bg-strong); border: 1px solid var(--glass-border);
+  color: var(--text);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.2s ease;
+}
+.pong-btn:hover {
+  transform: translateY(-2px) rotate(8deg);
+  border-color: var(--saber-blue);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--saber-blue) 55%, transparent);
+}
+.pong-btn:active { transform: scale(0.92); }
+
+/* ---- Pokémon-Übergang ---- */
+@property --pong-ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.pong-transition { position: fixed; inset: 0; z-index: 100001; pointer-events: none; }
+.pong-transition[hidden] { display: none; }
+.pong-transition .sweep { position: absolute; inset: 0; }
+.pong-transition.close .sweep {
+  background: conic-gradient(from 0deg at 50% 50%, #000 var(--pong-ang), transparent 0);
+  animation: pong-sweep 0.5s linear forwards;
+}
+.pong-transition.cover .sweep { background: #000; }
+.pong-transition.open .sweep {
+  background: #000;
+  animation: pong-iris 0.6s cubic-bezier(0.5, 0, 0.2, 1) forwards;
+}
+.pong-transition .radar {
+  position: absolute; inset: -10%; opacity: 0;
+  background: conic-gradient(from var(--pong-ang), transparent 0 340deg, rgba(59,202,255,0.55) 350deg, transparent 360deg);
+  mix-blend-mode: screen;
+}
+.pong-transition.close .radar { animation: pong-sweep 0.5s linear forwards, pong-fadein 0.5s ease forwards; }
+.pong-transition .flash {
+  position: absolute; inset: 0; background: #fff; opacity: 0;
+}
+.pong-transition.cover .flash { animation: pong-flash 0.4s ease forwards; }
+
+@keyframes pong-sweep { from { --pong-ang: 0deg; } to { --pong-ang: 360deg; } }
+@keyframes pong-fadein { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pong-flash { 0% { opacity: 0; } 30% { opacity: 0.9; } 100% { opacity: 0; } }
+@keyframes pong-iris {
+  from { clip-path: circle(75% at 50% 50%); }
+  to { clip-path: circle(0% at 50% 50%); }
+}
+
+/* ---- Spiel-Overlay ---- */
+.pong-overlay {
+  position: fixed; inset: 0; z-index: 100000;
+  background:
+    radial-gradient(1200px 700px at 50% 40%, #0a1024, var(--space) 70%);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; animation: pong-overlay-in 0.4s ease;
+}
+.pong-overlay[hidden] { display: none; }
+@keyframes pong-overlay-in { from { opacity: 0; } to { opacity: 1; } }
+
+#pongCanvas {
+  width: min(96vw, calc((100vh - 40px) * 1.6));
+  height: auto; max-height: calc(100vh - 30px);
+  aspect-ratio: 960 / 600;
+  border-radius: 12px;
+  box-shadow: 0 0 60px rgba(59, 202, 255, 0.15), inset 0 0 0 1px rgba(255,255,255,0.06);
+  touch-action: none; cursor: none;
+}
+
+.pong-close {
+  position: absolute; top: 16px; right: 18px; z-index: 5;
+  width: 40px; height: 40px; border-radius: 10px; cursor: pointer;
+  background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.18);
+  color: #fff; font-size: 1.1rem; transition: all 0.15s ease;
+}
+.pong-close:hover { border-color: var(--saber-red); color: var(--saber-red); box-shadow: 0 0 12px rgba(255,67,75,0.5); }
+
+/* ---- Menü- & Gameover-Screens ---- */
+.pong-screen {
+  position: absolute; inset: 0; z-index: 4;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 14px; padding: 24px; text-align: center;
+  background: radial-gradient(900px 600px at 50% 45%, rgba(4,6,14,0.72), rgba(4,6,14,0.92));
+  font-family: "Trebuchet MS", "Arial Narrow", Arial, sans-serif;
+}
+.pong-screen[hidden] { display: none; }
+
+.pong-title {
+  font-family: "Arial Black", "Arial", sans-serif; font-weight: 900;
+  font-size: clamp(2.4rem, 8vw, 4.6rem); letter-spacing: 0.04em; line-height: 0.9;
+  color: var(--sw-yellow);
+  text-shadow: 0 0 18px rgba(255,232,31,0.55), 0 4px 0 #7a6e00;
+  transform: perspective(420px) rotateX(16deg);
+  animation: pong-title-glow 2.6s ease-in-out infinite;
+}
+@keyframes pong-title-glow {
+  0%, 100% { text-shadow: 0 0 18px rgba(255,232,31,0.45), 0 4px 0 #7a6e00; }
+  50% { text-shadow: 0 0 30px rgba(255,232,31,0.85), 0 4px 0 #7a6e00; }
+}
+.pong-tag { color: #aeb6c6; letter-spacing: 0.35em; text-transform: uppercase; font-size: 0.78rem; margin-top: -6px; }
+.pong-over-title { font-family: "Arial Black", sans-serif; font-size: clamp(1.6rem, 5vw, 2.6rem); color: var(--sw-yellow); text-shadow: 0 0 16px rgba(255,232,31,0.5); }
+.pong-final { color: #fff; font-size: 1.05rem; }
+.pong-final b { color: var(--saber-blue); font-size: 1.6rem; }
+
+.pong-diffs { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.sw-btn {
+  cursor: pointer; font-family: inherit; font-weight: 700; letter-spacing: 0.06em;
+  color: var(--sw-yellow); background: rgba(255,232,31,0.06);
+  border: 1.5px solid var(--sw-yellow); border-radius: 10px; padding: 11px 18px; font-size: 0.95rem;
+  text-transform: uppercase; transition: all 0.15s ease;
+}
+.sw-btn:hover { background: var(--sw-yellow); color: #1a1700; box-shadow: 0 0 18px rgba(255,232,31,0.55); transform: translateY(-2px); }
+.sw-btn.selected { background: var(--sw-yellow); color: #1a1700; box-shadow: 0 0 18px rgba(255,232,31,0.5); }
+.sw-start { margin-top: 4px; padding: 13px 28px; font-size: 1.05rem; }
+.sw-btn[data-diff="padawan"] { --acc: #6ee787; }
+.sw-btn[data-diff="jedi"] { --acc: var(--saber-blue); }
+.sw-btn[data-diff="sith"] { --acc: var(--saber-red); }
+
+.pong-help { color: #7e8699; font-size: 0.78rem; margin-top: 4px; }
+.pong-mute {
+  position: absolute; top: 16px; left: 18px; z-index: 5;
+  background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.18); color: #fff;
+  width: 40px; height: 40px; border-radius: 10px; cursor: pointer; font-size: 1.05rem;
+}
+.pong-mute:hover { border-color: var(--saber-blue); }
+
+/* ---- Bestenliste ---- */
+.pong-board { width: min(460px, 90vw); margin-top: 6px; }
+.pong-board h3 { color: #aeb6c6; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 8px; }
+.pong-row {
+  display: grid; grid-template-columns: 26px 1fr auto auto; gap: 10px; align-items: center;
+  padding: 7px 12px; border-radius: 8px; font-size: 0.9rem; color: #e6edf3;
+  background: rgba(255,255,255,0.04); margin-bottom: 5px;
+}
+.pong-row.me { background: rgba(59,202,255,0.16); box-shadow: 0 0 0 1px rgba(59,202,255,0.4); }
+.pong-row .rk { color: var(--sw-yellow); font-weight: 800; text-align: center; }
+.pong-row .nm { text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pong-row .sc { font-variant-numeric: tabular-nums; font-weight: 700; }
+.pong-row .dg { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 7px; border-radius: 999px; border: 1px solid currentColor; }
+.dg-padawan { color: #6ee787; }
+.dg-jedi { color: var(--saber-blue); }
+.dg-sith { color: var(--saber-red); }
+.pong-empty { color: #7e8699; font-size: 0.85rem; padding: 8px; }
+
+#pongNameWrap { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: center; }
+#pongNameWrap label { color: #aeb6c6; font-size: 0.85rem; width: 100%; }
+#pongName {
+  background: rgba(255,255,255,0.06); border: 1.5px solid var(--saber-blue); border-radius: 8px;
+  color: #fff; padding: 10px 14px; font-size: 1rem; font-family: inherit; letter-spacing: 0.08em; text-align: center;
+  outline: none; width: 200px;
+}
+#pongName:focus { box-shadow: 0 0 14px rgba(59,202,255,0.5); }
+.pong-overactions { display: flex; gap: 10px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pong-title, .pong-overlay { animation: none; }
+}
