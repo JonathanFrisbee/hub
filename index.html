@@ -14,10 +14,13 @@
       <button type="button" class="theme-toggle" aria-label="Modus wechseln">🌙</button>
     </div>
 
-    <header>
-      <h1>Projekt-Dashboard</h1>
-      <p class="subtitle">Zentrale Übersicht über meine Projekte und Templates</p>
+    <header class="hero">
+      <p class="hello" id="greeting">Willkommen zurück</p>
+      <h1>Schön, dass du da bist!</h1>
+      <p class="tagline">Dein Trainings-Hub für die nächsten 8 Wochen — alles an einem Ort.</p>
     </header>
+
+    <div class="milestones" id="milestones"><!-- wird von app.js gefüllt --></div>
 
     <!--
       Projekt hinzufügen: Ordner mit index.html anlegen, dann unten eine
@@ -25,6 +28,12 @@
     -->
     <p class="section-title">Trainingsplanung 2026</p>
     <div class="grid">
+
+      <a class="card c-detail" href="./tagesplan/">
+        <div class="icon">🗒️</div>
+        <h3>Tagesplan</h3>
+        <p>Konkrete Einheiten, Tag für Tag — zum Abhaken.</p>
+      </a>
 
       <a class="card c-plan" href="./trainingsplan/">
         <div class="icon">🗓️</div>

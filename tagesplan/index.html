@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Tagesplan · 8 Wochen</title>
+  <script>(function(){try{var t=localStorage.getItem('hub-theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="back" href="../">← Dashboard</a>
+      <button type="button" class="theme-toggle" aria-label="Modus wechseln">🌙</button>
+    </div>
+
+    <h1>🗒️ Tagesplan · 8 Wochen</h1>
+    <p class="lead">Konkrete Einheiten · tippe einen Tag an zum Abhaken · bei Beschwerden Intensität anpassen</p>
+
+    <div class="unit-nav">
+      <a href="../trainingsplan/">🗓️ Überblick</a>
+      <a href="../kraft-a/">💪 Kraft A</a>
+      <a href="../kraft-b/">🏋️ Kraft B</a>
+      <a href="../ellbogen-morgenroutine/">🌅 Morgenroutine</a>
+    </div>
+
+    <div class="checklist-head">
+      <span class="progress"><span class="p-fill" id="fill"></span></span>
+      <span class="p-label" id="cnt" data-unit="Tage">0/0</span>
+      <button type="button" class="btn-reset" id="resetBtn">Zurücksetzen</button>
+    </div>
+
+    <details class="foldout">
+      <summary>Intensitäts-Zonen (nach Gefühl / RPE steuern)</summary>
+      <div class="dbody">
+        <table>
+          <tr><td class="zname">Z2 Grundlage</td><td>locker, Gespräch problemlos möglich</td></tr>
+          <tr><td class="zname">Z3 Tempo</td><td>zügig, nur noch kurze Sätze</td></tr>
+          <tr><td class="zname">Z4 Schwelle</td><td>hart, einzelne Worte</td></tr>
+          <tr><td class="zname">Z5 Intervall</td><td>maximal, kurze Spitzen</td></tr>
+        </table>
+        <div style="margin-top:8px">Bei Hitze und müden Beinen nach Gefühl steuern, nicht nach Tempo. Die erste Tempo-Einheit in Woche 5 zeigt dein aktuelles Niveau.</div>
+      </div>
+    </details>
+
+    <details class="foldout">
+      <summary>Tischtennis-Fokus (an den Ellbogen gekoppelt)</summary>
+      <div class="dbody">
+        <div class="phase"><b>Solange der Ellbogen angeschlagen ist (bis ca. W4):</b> über die Noppe spielen – lange Abwehr am Tisch, auf Unterschnitt angreifen, viel Beinarbeit. VH-Topspin bewusst sparen. In den Spielen defensiv, Arm schonen.</div>
+        <div class="phase"><b>Sobald der Ellbogen besser ist (ab ~W5):</b> Fokus zurück auf die Vorhand – VH-Eröffnung, klare Spielzüge, Aufschlag-Rückschlag.</div>
+      </div>
+    </details>
+
+    <div class="legend">
+      <span class="lg"><span class="sq" style="background:var(--cat-tt)"></span>Tischtennis</span>
+      <span class="lg"><span class="sq" style="background:var(--cat-kraft)"></span>Kraft / Rehab</span>
+      <span class="lg"><span class="sq" style="background:var(--cat-aus)"></span>Ausdauer</span>
+      <span class="lg"><span class="sq" style="background:var(--cat-ruhe)"></span>Ruhe / Reise</span>
+      <span class="lg"><span class="star">★</span> Spiel / wichtiger Termin</span>
+    </div>
+
+    <div id="plan"></div>
+
+    <div class="note"><b>Jeden Tag:</b> <a href="../ellbogen-morgenroutine/">Ellbogen-Morgenroutine</a> (~10 min, vor dem Frühstück) – in allen Wochen.</div>
+    <div class="note"><b>Gefühl vor Tempo:</b> Bei Hitze und müden Beinen (nach dem Radlager) nach Anstrengung steuern, nicht nach Pace.</div>
+    <div class="note"><b>„frei / locker"</b> = optionaler Ruhetag. <b>Kern-Rhythmus ab W5:</b> Di TT · Mi Kraft A · Fr Kraft B · Sa Ausdauer.</div>
+
+    <footer>Teil des <a href="../">Projekt-Dashboards</a> · Stand 2026 · anonymisiert</footer>
+  </div>
+
+  <script src="../assets/app.js"></script>
+  <script>
+  (function () {
+    "use strict";
+    var WEEKS = [
+      { n: "W1", p: "Urlaubswoche · Heilung & Fundament", days: [
+        { d: "Sa", t: "kraft", x: "Kraft A (Core + Hüfte)", note: "5 Übungen, 35–40 min", now: true },
+        { d: "So", t: "ruhe", x: "Ruhe / Packen" },
+        { d: "Mo", t: "ruhe", x: "Anreise Urlaub" },
+        { d: "Di–So", t: "aus", x: "Urlaub (Tage frei) · TT-Pause", note: "Lauf 1: 35 min Z2 + 4×20s Steigerungen · Lauf 2: 40 min Z2 · Lauf 3: 45 min Z2 ruhig · dazu 2× Kraft A (Bodyweight). Morgens, locker – bei Hitze langsamer." }
+      ]},
+      { n: "W2", p: "Wettkampfwoche · maximale Entlastung", days: [
+        { d: "Mo", t: "ruhe", x: "Rückreise" },
+        { d: "Di", t: "tt", key: true, x: "Wettkampfspiel", note: "defensiv über Noppe, VH-Topspin sparen · danach kühlen" },
+        { d: "Mi", t: "ruhe", x: "Ruhe" },
+        { d: "Do", t: "termin", key: true, x: "Reha-Check (Termin)", note: "Reha-Vorgaben holen · nächstes Spiel ansprechen" },
+        { d: "Fr", t: "kraft", x: "Kraft A – nur Core", note: "keine Armübungen" },
+        { d: "Sa", t: "ruhe", x: "Ruhe" },
+        { d: "So", t: "tt", key: true, x: "Wettkampfspiel", note: "nur wenn Reha-Check nicht abrät · defensiv, Arm schonen" }
+      ]},
+      { n: "W3", p: "Übergangswoche", days: [
+        { d: "Mo", t: "kraft", x: "Ellbogen-Rehab", note: "nach Reha-Vorgabe" },
+        { d: "Di", t: "tt", x: "TT Technik", note: "Noppe: lange Abwehr · auf Unterschnitt angreifen · Beinarbeit" },
+        { d: "Mi", t: "kraft", x: "Kraft B", note: "exzentrisch nur nach Freigabe" },
+        { d: "Do", t: "aus", x: "Lauf 30–35 min Z2", note: "locker + 5×20s lockere Steigerungen am Ende" },
+        { d: "Fr", t: "ruhe", x: "Packen / Rad checken" },
+        { d: "Sa", t: "aus", x: "Rad: Einrollen 25 min sehr locker", note: "Z1–Z2, Reisebeine lockern" },
+        { d: "So", t: "aus", x: "Rad Tag 1 · 2–2,5 h Z2", note: "locker · lockerer Griff (Ellbogen schonen)" }
+      ]},
+      { n: "W4", p: "Radlager · Z2-Volumen", days: [
+        { d: "Mo", t: "aus", x: "Rad Tag 2 · 3–4 h Z2", note: "Grundlage im Gruppentempo" },
+        { d: "Di", t: "aus", x: "Rad Tag 3 · 3–4 h Z2", note: "wenn Beine gut: 3×8 min Tempo einstreuen" },
+        { d: "Mi", t: "ruhe", x: "Ruhetag oder 60–90 min sehr locker" },
+        { d: "Do", t: "aus", x: "Rad Tag 4 · 3–4 h Z2" },
+        { d: "Fr", t: "aus", x: "Rad Tag 5 · 2–3 h Z2", note: "gegen Ende nach Lust 2×10 min Tempo" },
+        { d: "Sa", t: "ruhe", x: "Heimreise" },
+        { d: "So", t: "ruhe", x: "Ruhe" }
+      ]},
+      { n: "W5", p: "Regeneration · TT-Rhythmus zurück", days: [
+        { d: "Mo", t: "ruhe", x: "Ruhe (Regeneration nach Lager)" },
+        { d: "Di", t: "tt", x: "TT-Training (locker)", note: "VH vorsichtig wieder antesten, wenn Ellbogen ruhig" },
+        { d: "Mi", t: "kraft", x: "Kraft A" },
+        { d: "Do", t: "ruhe", x: "frei / Mobility" },
+        { d: "Fr", t: "kraft", x: "Kraft B + Ellbogen-Rehab" },
+        { d: "Sa", t: "aus", x: "Intensität zurück: Lauf-Intervalle o. Rad-Tempo", note: "Lauf: 10 min ein + 6×1 min flott / 90 s Trab + 10 min aus. Oder Rad: 75 min Z2 + 3×6 min Tempo / 4 min locker" },
+        { d: "So", t: "ruhe", x: "Ruhe" }
+      ]},
+      { n: "W6", p: "Spielwoche", days: [
+        { d: "Mo", t: "ruhe", x: "Ruhe / locker" },
+        { d: "Di", t: "tt", x: "TT – Spielvorbereitung", note: "Aufschlag-Rückschlag-Muster · Noppe-Block + VH dosiert" },
+        { d: "Mi", t: "kraft", x: "Kraft A leicht", note: "kein Muskelkater ins Spiel tragen" },
+        { d: "Do", t: "aus", x: "Lauf 30 min locker Z2", note: "frisch bleiben fürs Spiel – keine Intensität" },
+        { d: "Fr", t: "ruhe", x: "Ruhe" },
+        { d: "Sa", t: "tt", key: true, x: "Wettkampfspiel", note: "Aufwärmen, Klammer falls nötig" },
+        { d: "So", t: "ruhe", x: "Regeneration" }
+      ]},
+      { n: "W7", p: "Voller Rhythmus · Progression", days: [
+        { d: "Mo", t: "ruhe", x: "Ruhe / locker" },
+        { d: "Di", t: "tt", x: "TT – klare Spielzüge", note: "Fokus zurück auf VH-Eröffnung, wenn Ellbogen stabil" },
+        { d: "Mi", t: "kraft", x: "Kraft A · Progression Stufe 2", note: "Glute Bridge einbeinig, Abduction mit Band" },
+        { d: "Do", t: "ruhe", x: "frei / Mobility", note: "optional: 25 min Z2 + 4 Steigerungen, nur wenn frisch" },
+        { d: "Fr", t: "kraft", x: "Kraft B · Theraband härter", note: "Pronation/Supination einführen" },
+        { d: "Sa", t: "aus", x: "Rad 60–80 km Genussfahrt Z2", note: "Mitte optional 2×10 min Tempo, sonst genießen" },
+        { d: "So", t: "ruhe", x: "Ruhe" }
+      ]},
+      { n: "W8", p: "Abschluss & Review", days: [
+        { d: "Mo", t: "ruhe", x: "Ruhe / locker" },
+        { d: "Di", t: "tt", x: "TT-Training" },
+        { d: "Mi", t: "kraft", x: "Kraft A" },
+        { d: "Do", t: "ruhe", x: "frei / Mobility" },
+        { d: "Fr", t: "kraft", x: "Kraft B" },
+        { d: "Sa", t: "aus", x: "Fortschritts-Check: Lauf 45 min", note: "10 min ein + 2×10 min Tempo / 3 min Trab + aus. Leichter als in W5? = Fortschritt. Alternativ 60 km Z2 Rad." },
+        { d: "So", t: "termin", key: true, x: "8-Wochen-Review", note: "Ellbogen, Kraft, TT-Gefühl, Ausdauer → Saisonvorbereitung" }
+      ]}
+    ];
+
+    var KEYBG = { tt: "var(--cat-tt-bg)", termin: "var(--cat-termin-bg)", kraft: "var(--cat-kraft-bg)" };
+    var plan = document.getElementById("plan");
+    var fill = document.getElementById("fill");
+    var cnt = document.getElementById("cnt");
+    var done = {};
+    var total = 0;
+    var DKEY = "hub:detail:day:";
+
+    function save() {
+      var c = 0;
+      for (var k in done) if (done[k]) c++;
+      try {
+        localStorage.setItem("hub:detail:done", String(c));
+        localStorage.setItem("hub:detail:total", String(total));
+      } catch (e) {}
+      return c;
+    }
+    function update(celebrateIfFull) {
+      var c = save();
+      cnt.textContent = c + "/" + total + " Tage";
+      fill.style.width = (total ? (c / total) * 100 : 0) + "%";
+      if (celebrateIfFull && total > 0 && c === total && window.hubCelebrate) {
+        window.hubCelebrate("8 Wochen geschafft!", "Kompletter Plan abgehakt. Riesenrespekt. 💪");
+      }
+    }
+
+    WEEKS.forEach(function (w, wi) {
+      var sec = document.createElement("div");
+      sec.className = "wsec";
+      sec.innerHTML = '<div class="wh"><span class="wn">' + w.n + '</span><span class="wp">' + w.p + "</span></div>";
+
+      w.days.forEach(function (day, di) {
+        total++;
+        var id = wi + "_" + di;
+        try { if (localStorage.getItem(DKEY + id) === "1") done[id] = true; } catch (e) {}
+
+        var el = document.createElement("div");
+        el.className = "day" + (day.key ? " key" : "") + (day.now ? " now" : "") + (done[id] ? " done" : "");
+        if (day.key) el.style.setProperty("--keybg", KEYBG[day.t] || "var(--cat-tt-bg)");
+
+        var star = day.key ? '<span class="star">★ </span>' : "";
+        var note = day.note ? '<span class="d-note">' + day.note + "</span>" : "";
+        var badge = day.now ? '<span class="badge">heute</span>' : "";
+
+        el.innerHTML =
+          '<span class="d-check"></span>' +
+          '<span class="d-date">' + day.d + "</span>" +
+          '<span class="d-dot" style="background:var(--cat-' + day.t + ')"></span>' +
+          '<span class="d-txt">' + star + day.x + note + "</span>" +
+          badge;
+
+        el.addEventListener("click", function () {
+          done[id] = !done[id];
+          el.classList.toggle("done", done[id]);
+          try { localStorage.setItem(DKEY + id, done[id] ? "1" : "0"); } catch (e) {}
+          update(done[id]);
+        });
+        sec.appendChild(el);
+      });
+      plan.appendChild(sec);
+    });
+
+    update(false);
+
+    document.getElementById("resetBtn").addEventListener("click", function () {
+      done = {};
+      document.querySelectorAll(".day.done").forEach(function (e) { e.classList.remove("done"); });
+      WEEKS.forEach(function (w, wi) {
+        w.days.forEach(function (day, di) {
+          try { localStorage.setItem(DKEY + (wi + "_" + di), "0"); } catch (e) {}
+        });
+      });
+      update(false);
+    });
+  })();
+  </script>
+</body>
+</html>
